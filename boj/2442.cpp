@@ -1,0 +1,24 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int main(void){
+    int n;
+    cin>>n;
+    int i;
+    for(i=0;i<n;i++){
+        int j;
+
+        for(j=0;j<n*2-1;j++){
+            if(j<n-1-i)
+                cout<<" ";
+            else if(j>=n-1-i && j<=n-1+i){
+
+                cout<<"*";
+            }
+        }
+        cout<<'\n';
+    }
+    return 0;
+}

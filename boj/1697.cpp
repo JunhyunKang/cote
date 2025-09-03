@@ -1,52 +1,48 @@
-#include <iostream>
-#include <algorithm>
-#include <queue>
-#include <cmath>
+#include <bits/stdc++.h>
+
 using namespace std;
-const int MAX = 200005;
-int arr[MAX];
+
+// 걸으면 +- 1 씩
+// 순간이동은 *2 씩
+
+const int MAX = 100000;
+vector<int> arr(MAX+1, -1);
+int n,k;
+
+
+queue<int> q;
 int main(void){
-    // int n=1,k=100000;
-    int n,k;
     cin>>n>>k;
-    
-
-
-    queue<int> q;
+    int answer=0;
+    arr[n]=0;
 
     q.push(n);
 
-    int ans=0;
     while(!q.empty()){
-        arr[q.front()]=ans;
-        if(q.front() == k){
-            
+        int cur = q.front();
+        q.pop();
+        if(cur==k){
             break;
         }
-
-        if(arr[q.front()*2]==0){
-            q.push(q.front()*2);
+        int back = cur-1;
+        int front = cur+1;
+        int move = cur*2;
+        if(back>=0&&arr[back]==-1){
+            arr[back]=arr[cur]+1;
+            q.push(back);
+        }
+        if(front<=MAX&&arr[front]==-1){
+            arr[front]=arr[cur]+1;
+            q.push(front);
 
         }
+        if(move<=MAX&&arr[move]==-1){
+            arr[move]=arr[cur]+1;
+            q.push(move);
+        }
+    }
+
+    cout<< arr[k];
     
-        if(arr[q.front()+1]==0){
-            q.push(q.front()+1);
-
-        }
-
-        if(arr[q.front()-1]==0){
-            q.push(q.front()-1);
-
-        }
-        q.pop();   
-        ans++;
-    }
-    int cnt=0;
-    int s=0;
-    while(ans-s>0){
-        cnt++;
-        s=s+pow(3, cnt);
-    }
-    cout<<cnt;
     return 0;
 }
